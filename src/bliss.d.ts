@@ -48,6 +48,7 @@ export interface Empty {
 
 export interface Properties {
   [key: string]: {
+    default?: string
     required?: boolean
     type: string
   }

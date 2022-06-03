@@ -27,8 +27,30 @@ export const bliss: Bliss = {
 
     properties: {
       children: {
-        required: false,
+        required: true,
         type: 'ReactNode',
+      },
+      ariaLabel: {
+        required: false,
+        type: 'string',
+      },
+      className: {
+        required: false,
+        type: 'string',
+      },
+      itemsDirection: {
+        default: 'ltr',
+        required: false,
+        type: "['ltr', 'rtl', 'ttb', 'btt']",
+      },
+      primary: {
+        default: 'false',
+        required: false,
+        type: 'boolean',
+      },
+      value: {
+        required: false,
+        type: 'string',
       },
     },
   },
