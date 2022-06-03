@@ -17,7 +17,7 @@ export const bliss: Bliss = {
     mainFile: 'index.ts',
 
     categories: ['Fetch', 'Remote'],
-    description: 'Function (hook) as a component',
+    description: 'Function (hook) as a component for kind of fetching remote data',
     icon: 'https://static.bliss.co/bliss/icons/logo-remote.svg',
 
     properties: {
