@@ -48,6 +48,8 @@ export const bliss: Bliss = {
   },
   docs: {
     overview: `
+#### > This doc and metadata is generated with in the same component's file.
+
 ### Hook
 
 A remote function component fot to ...

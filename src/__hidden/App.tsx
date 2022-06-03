@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <div className="p-4">
-        <Menu tabular>
+        <Menu tabular inverted>
           <Menu.Item>
             <Link to="/">RootButton</Link>
           </Menu.Item>

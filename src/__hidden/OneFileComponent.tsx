@@ -16,18 +16,6 @@ export default ({ exports: { bliss, ...components } }: { exports: { bliss: Bliss
   const OverviewDoc =
     typeof bliss.docs === 'object' && bliss.docs.overview ? bliss.docs.overview : null
 
-  if (typeof ExampleDoc === 'string') {
-    const { default: Example } = evaluateSync(ExampleDoc, runtime as EvaluateOptions)
-    sections.push({
-      menuItem: 'Example',
-      render: () => (
-        <div className="border border-solid border-gray-300 border-t-0 p-2">
-          <Example />
-        </div>
-      ),
-    })
-  }
-
   if (typeof OverviewDoc === 'string') {
     const { default: Overview } = evaluateSync(OverviewDoc, runtime as EvaluateOptions)
     sections.push({
@@ -40,9 +28,21 @@ export default ({ exports: { bliss, ...components } }: { exports: { bliss: Bliss
     })
   }
 
+  if (typeof ExampleDoc === 'string') {
+    const { default: Example } = evaluateSync(ExampleDoc, runtime as EvaluateOptions)
+    sections.push({
+      menuItem: 'Example',
+      render: () => (
+        <div className="border border-solid border-gray-300 border-t-0 p-2">
+          <Example />
+        </div>
+      ),
+    })
+  }
+
   if (bliss.metadata.properties || bliss.metadata.response) {
     sections.push({
-      menuItem: 'Properties',
+      menuItem: `Properties ${bliss.metadata.response ? '& Response' : ''}`,
       render: () => (
         <div className="border border-solid border-gray-300 border-t-0 p-2">
           <Table celled definition selectable striped>

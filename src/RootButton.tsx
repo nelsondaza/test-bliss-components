@@ -27,6 +27,7 @@ export const bliss: Bliss = {
 
     properties: {
       children: {
+        description: 'Inner content of the button',
         required: true,
         type: 'ReactNode',
       },
@@ -55,6 +56,8 @@ export const bliss: Bliss = {
     },
   },
   docs: `
+
+#### > This doc and metadata is generated with in the same component's file.
 
 ### About
 
