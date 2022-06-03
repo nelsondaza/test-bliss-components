@@ -1,12 +1,23 @@
 // types/mdx.d.ts
+import { FC } from 'react'
+
 declare module '*.mdx' {
   let MDXComponent: (props) => JSX.Element
   export default MDXComponent
 }
 
 export interface Bliss {
+  docs?: Doc | Docs
   metadata: Metadata
 }
+
+export type Doc = FC | string
+export interface Docs {
+  example: Doc,
+  overview?: Doc,
+  variants?: Doc,
+}
+
 
 export interface Metadata {
   $schema: string

@@ -54,4 +54,20 @@ export const bliss: Bliss = {
       },
     },
   },
+  docs: `
+
+### About
+
+A component that does something special and renders text in a div.
+The component renders a bla bla bla ...
+
+This enables an easy way to add a component to your project ...
+
+### Example
+
+\`\`\`tsx live
+<Button>Hello world!</Button>
+\`\`\`
+`,
+
 }

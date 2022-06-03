@@ -1,9 +1,9 @@
+import * as runtime from 'react/jsx-runtime'
 import { Bliss } from '../bliss'
 import { Breadcrumb, Divider, Image, Label, Tab, Table } from 'semantic-ui-react'
+import { EvaluateOptions, evaluateSync } from '@mdx-js/mdx'
 
 export default ({ exports: { bliss, ...components } }: { exports: { bliss: Bliss } }) => {
-  console.log('bliss', bliss)
-  console.log('components', components)
 
   const breadcrumb = bliss.metadata.id.split('/').map((part, i, t) => ({
     key: part,
@@ -12,6 +12,18 @@ export default ({ exports: { bliss, ...components } }: { exports: { bliss: Bliss
   }))
 
   const sections = []
+
+  if (typeof bliss.docs === 'string') {
+    const { default: Example } = evaluateSync(bliss.docs, runtime as EvaluateOptions)
+    sections.push({
+      menuItem: 'Example',
+      render: () => (
+        <div className="border border-solid border-gray-300 border-t-0 p-2">
+          <Example />
+        </div>
+      ),
+    })
+  }
 
   if (bliss.metadata.properties) {
     sections.push({
