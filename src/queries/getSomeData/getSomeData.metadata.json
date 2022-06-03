@@ -1,0 +1,44 @@
+{
+  "$schema": "https://bliss.co/bliss/schemas/metadata@1.0.0.json",
+
+  "id": "@bliss/TEAM_SCOPE/USER_SCOPE/PACKAGE_SCOPE/getSomeData",
+  "author": "USER",
+  "version": "1.0.0",
+  "mainFile": "index.ts",
+
+  "categories": ["data"],
+  "description": "Data fetch hook",
+  "icon": "https://static.bliss.co/bliss/icons/logo.svg",
+
+  "scope": "PACKAGE",
+
+  "properties": {
+    "URL": {
+      "type": "string"
+    },
+    "credentials": {
+      "type": "object"
+    }
+  },
+
+  "response": {
+    "type": "array"
+  },
+
+  "config": {
+    "bliss.ui/fetch": {},
+    "bliss.envs/envs": {
+      "deployment": {}
+    },
+    "bliss.envs/scheduling": {
+      "scheduling": {
+        "* * * * *": {
+          "properties": {
+            "URL": "value",
+            "credentials": "value"
+          }
+        }
+      }
+    }
+  }
+}

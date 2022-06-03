@@ -1,0 +1,27 @@
+{
+  "$schema": "https://bliss.co/bliss/schemas/metadata@1.0.0.json",
+
+  "id": "@bliss/TEAM_SCOPE/USER_SCOPE/PACKAGE_SCOPE/Button",
+  "author": "USER",
+  "version": "1.0.0",
+  "mainFile": "index.ts",
+
+  "categories": ["UI", "Form Element"],
+  "description": "A nice Button",
+  "icon": "https://static.bliss.co/bliss/icons/logo.svg",
+
+  "scope": "PACKAGE",
+
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "avatarUrl": {
+      "type": "url"
+    }
+  },
+
+  "config": {
+    "bliss.ui/react": {}
+  }
+}
