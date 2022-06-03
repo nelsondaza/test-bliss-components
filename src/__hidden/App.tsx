@@ -4,6 +4,7 @@ import { Menu } from 'semantic-ui-react'
 // import { default as metadata } from './components/Button/Button.metadata.json';
 /* eslint-disable import/no-webpack-loader-syntax */
 import * as RootButton from '../RootButton'
+import * as useSomeData from '../useSomeData'
 import OneFileComponent from './OneFileComponent'
 
 import './assets/semantic.css'
@@ -17,10 +18,14 @@ function App() {
           <Menu.Item>
             <Link to="/">RootButton</Link>
           </Menu.Item>
+          <Menu.Item>
+            <Link to="/use-some-data">useSomeData</Link>
+          </Menu.Item>
         </Menu>
         <div className="p-2">
           <Routes>
             <Route path="/" element={<OneFileComponent exports={RootButton} />} />
+            <Route path="/use-some-data" element={<OneFileComponent exports={useSomeData} />} />
           </Routes>
         </div>
         {/*<Route path="/" render={() => <Page component={Document} />} />*/}

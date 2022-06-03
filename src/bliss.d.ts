@@ -29,6 +29,7 @@ export interface Metadata {
   description: string
   icon: string
   properties: Properties
+  responseType?: string
   response?: Response
   config?: Config
 }
@@ -60,11 +61,15 @@ export interface Empty {
 export interface Properties {
   [key: string]: {
     default?: string
+    description?: string
     required?: boolean
     type: string
   }
 }
 
 export interface Response {
-  type: string
+  [key: string]: {
+    description?: string
+    type: string
+  }
 }

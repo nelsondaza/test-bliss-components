@@ -4,7 +4,6 @@ import { Breadcrumb, Divider, Image, Label, Tab, Table } from 'semantic-ui-react
 import { EvaluateOptions, evaluateSync } from '@mdx-js/mdx'
 
 export default ({ exports: { bliss, ...components } }: { exports: { bliss: Bliss } }) => {
-
   const breadcrumb = bliss.metadata.id.split('/').map((part, i, t) => ({
     key: part,
     content: part,
@@ -12,9 +11,13 @@ export default ({ exports: { bliss, ...components } }: { exports: { bliss: Bliss
   }))
 
   const sections = []
+  const ExampleDoc =
+    typeof bliss.docs === 'string' ? bliss.docs : typeof bliss.docs === 'function' ? bliss.docs : bliss.docs?.example
+  const OverviewDoc =
+    typeof bliss.docs === 'object' && bliss.docs.overview ? bliss.docs.overview : null
 
-  if (typeof bliss.docs === 'string') {
-    const { default: Example } = evaluateSync(bliss.docs, runtime as EvaluateOptions)
+  if (typeof ExampleDoc === 'string') {
+    const { default: Example } = evaluateSync(ExampleDoc, runtime as EvaluateOptions)
     sections.push({
       menuItem: 'Example',
       render: () => (
@@ -25,7 +28,19 @@ export default ({ exports: { bliss, ...components } }: { exports: { bliss: Bliss
     })
   }
 
-  if (bliss.metadata.properties) {
+  if (typeof OverviewDoc === 'string') {
+    const { default: Overview } = evaluateSync(OverviewDoc, runtime as EvaluateOptions)
+    sections.push({
+      menuItem: 'Overview',
+      render: () => (
+        <div className="border border-solid border-gray-300 border-t-0 p-2">
+          <Overview />
+        </div>
+      ),
+    })
+  }
+
+  if (bliss.metadata.properties || bliss.metadata.response) {
     sections.push({
       menuItem: 'Properties',
       render: () => (
@@ -33,7 +48,7 @@ export default ({ exports: { bliss, ...components } }: { exports: { bliss: Bliss
           <Table celled definition selectable striped>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>Name</Table.HeaderCell>
+                <Table.HeaderCell> </Table.HeaderCell>
                 <Table.HeaderCell>Type</Table.HeaderCell>
                 <Table.HeaderCell>Required</Table.HeaderCell>
                 <Table.HeaderCell>Default</Table.HeaderCell>
@@ -48,11 +63,35 @@ export default ({ exports: { bliss, ...components } }: { exports: { bliss: Bliss
                   <Table.Cell>{prop.type}</Table.Cell>
                   <Table.Cell>{prop.required ? 'Yes' : 'No'}</Table.Cell>
                   <Table.Cell>{prop.default}</Table.Cell>
-                  <Table.Cell> </Table.Cell>
+                  <Table.Cell>{prop.description}</Table.Cell>
                 </Table.Row>
               ))}
             </Table.Body>
           </Table>
+          {bliss.metadata.response && (
+            <>
+              <h3>Response <small className="text-gray-500">{`<`}{bliss.metadata.responseType}{`>`}</small></h3>
+              <Table celled definition selectable striped>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell> </Table.HeaderCell>
+                    <Table.HeaderCell>Type</Table.HeaderCell>
+                    <Table.HeaderCell>Description</Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+
+                <Table.Body>
+                  {Object.entries(bliss.metadata.response).map(([name, prop]) => (
+                    <Table.Row key={name}>
+                      <Table.Cell>{name}</Table.Cell>
+                      <Table.Cell>{prop.type}</Table.Cell>
+                      <Table.Cell>{prop.description}</Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
+              </Table>
+            </>
+          )}
         </div>
       ),
     })
