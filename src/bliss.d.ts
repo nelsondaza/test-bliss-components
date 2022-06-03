@@ -6,6 +6,7 @@ declare module '*.mdx' {
   export default MDXComponent
 }
 
+// types for metadata and docs (wip)
 export interface Bliss {
   docs?: Doc | Docs
   metadata: Metadata
